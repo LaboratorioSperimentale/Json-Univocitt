@@ -81,46 +81,49 @@ def process_codes(properties_list, collapse_levels=True):
     return codes
 
 
-quotes_list = []
-with open("dati.tsv", encoding="utf-8") as fin:
-    fin.readline()
-    for line in fin:
-        quot_object = {}
-        # print(line)
-        line = line.strip().split("\t")
+def convert_to_json():
+    quotes_list = []
+    with open("dati.tsv", encoding="utf-8") as fin:
+        fin.readline()
+        for line in fin:
+            quot_object = {}
+            # print(line)
+            line = line.strip().split("\t")
 
 
-        si_cod, quot_name, _, _, quot_content, codes, autore, bib_ref, bib_link = line
-
-
-
-        quot_object["id"] = si_cod
-        quot_object["name"] = quot_name
-        quot_object["fragment"] = quot_content
-        #        quot_object["language"] = docgroup.split()[0]
-        quot_object["bibliographic_reference"] = bib_ref
-        quot_object["bibliographic_link"] = bib_link
-
-
-        quot_object["autore"] =  [ autore ]
-
-
-        ret = process_codes(codes.split(), collapse_levels=True)
-        ################################
-        # da fare la geo-location (bologna default)
-        ################################
-        #quot_object["mail_lotation"] = "44.496599, 11.351678"
-
-        for d, v in ret.items():
-            quot_object[d] = v
-        quotes_list.append(quot_object)
-
-out_file = open("prova_output.json", "w", encoding="utf-8")
-
-json.dump(quotes_list, out_file, indent=4, ensure_ascii=False)
-
-out_file.close()
+            si_cod, quot_name, _, _, quot_content, codes, autore, bib_ref, bib_link = line
 
 
 
+            quot_object["id"] = si_cod
+            quot_object["name"] = quot_name
+            quot_object["fragment"] = quot_content
+            #        quot_object["language"] = docgroup.split()[0]
+            quot_object["bibliographic_reference"] = bib_ref
+            quot_object["bibliographic_link"] = bib_link
 
+
+            quot_object["autore"] =  [ autore ]
+
+
+            ret = process_codes(codes.split(), collapse_levels=True)
+            ################################
+            # da fare la geo-location (bologna default)
+            ################################
+            #quot_object["main_location"] = "44.496599, 11.351678"
+            #quot_object["main_location"] = (44.496599, 11.351678)
+
+            for d, v in ret.items():
+                quot_object[d] = v
+            quotes_list.append(quot_object)
+
+    out_file = open("prova_output.json", "w", encoding="utf-8")
+
+    json.dump(quotes_list, out_file, indent=4, ensure_ascii=False)
+
+    out_file.close()
+
+
+
+if __name__ == "__main__":
+    convert_to_json()

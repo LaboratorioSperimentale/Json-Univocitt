@@ -104,6 +104,7 @@ def convert_to_json():
 
 
             quot_object["autore"] =  [ autore ]
+            # quot_object["autore"] =  autore.split("#") # NEW VERSION
 
 
             ret = process_codes(codes.split(), collapse_levels=True)

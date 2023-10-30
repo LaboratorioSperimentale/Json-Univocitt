@@ -93,17 +93,16 @@ def convert_to_json():
 
             si_cod, quot_name, _, _, quot_content, codes, autore, bib_ref, bib_link = line
 
-
-
             quot_object["id"] = si_cod
             quot_object["name"] = quot_name
             quot_object["fragment"] = quot_content
             #        quot_object["language"] = docgroup.split()[0]
             quot_object["bibliographic_reference"] = bib_ref
             quot_object["bibliographic_link"] = bib_link
+            
             autore = autore.split('#')  # NEW VERSION
-            quot_object["autore"] =  [ autore ]
-
+            quot_object["autore"] =  autore
+            
             ret = process_codes(codes.split(), collapse_levels=True)
 
             quot_object["main_location"] = "44.496599, 11.351678"
